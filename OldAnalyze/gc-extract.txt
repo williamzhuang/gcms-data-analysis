@@ -1,0 +1,16 @@
+BEGIN{print "file","C12","C14","C16","C18","C19is"}
+$1=="Signal"{
+	signal=substr($(NF),0,index($(NF),"\\")-3);
+	C12=0;
+	C14=0;
+	C16=0;
+	C18=0;
+	C19is=0}
+signal!=""&&$2>10.0&&$2<11.4{C12+=$(NF-2)}
+signal!=""&&$2>11.5&&$2<12.50{C14+=$(NF-2)}
+signal!=""&&$2>12.51&&$2<13.5{C16+=$(NF-2)}
+signal!=""&&$2>13.51&&$2<14.1{C18+=$(NF-2)}
+signal!=""&&$2>14.15&&$2<15{C19is+=$(NF-2)}
+$1=="Sum"{print signal, C12, C14, C16, C18, C19is;}
+#
+# on terminal type awk -f gc-extract.txt 0827_proc.txt | column -t
